@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" prefHeight="700.0" prefWidth="1000.0" stylesheets="@neon_theme.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Steganography.Controller">
+    <left>
+        <VBox styleClass="sidebar" prefWidth="220.0" spacing="20.0" alignment="CENTER">
+            <padding>
+                <Insets top="25" right="15" bottom="25" left="15" />
+            </padding>
+            <children>
+                <Label text="underLeaf" styleClass="sidebar-title">
+                    <font>
+                        <Font name="JetBrains Mono Bold" size="26.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </Label>
+                <Button fx:id="newCoverImage" text="Cover Image" onAction="#setCoverImage" styleClass="sidebar-button" prefWidth="180.0" prefHeight="40.0" />
+                <Button fx:id="newSteganographicImage" text="Steganographic Image" onAction="#setSteganographicImage" styleClass="sidebar-button" prefWidth="180.0" prefHeight="40.0" />
+                <Button fx:id="newSecretDocument" text="Secret Document" onAction="#setSecretDocument" styleClass="sidebar-button" prefWidth="180.0" prefHeight="40.0" disable="true" />
+                <Button fx:id="newSecretImage" text="Secret Image" onAction="#setSecretImage" styleClass="sidebar-button" prefWidth="180.0" prefHeight="40.0" disable="true" />
+                <Button fx:id="quitApp" text="Quit" onAction="#quitApp" styleClass="sidebar-button" prefWidth="180.0" prefHeight="40.0" />
+                <Label text="About" styleClass="sidebar-subtitle">
+                    <font>
+                        <Font name="JetBrains Mono Medium" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="30.0" />
+                    </VBox.margin>
+                </Label>
+                <Label text="Developed by:" styleClass="sidebar-text">
+                    <font>
+                        <Font name="JetBrains Mono" size="14.0" />
+                    </font>
+                </Label>
+                <Label text="23PT01 - Aakash Velusamy" styleClass="sidebar-text">
+                    <font>
+                        <Font name="JetBrains Mono" size="14.0" />
+                    </font>
+                </Label>
+                <Label text="23PT25 - Prathish S M" styleClass="sidebar-text">
+                    <font>
+                        <Font name="JetBrains Mono" size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <TabPane fx:id="secretContentTabs" tabClosingPolicy="UNAVAILABLE" styleClass="content-tabs">
+            <tabs>
+                <Tab text="Encode" styleClass="content-tab">
+                    <content>
+                        <GridPane hgap="30.0" vgap="30.0" styleClass="content-grid" alignment="CENTER">
+                            <padding>
+                                <Insets top="30" right="30" bottom="30" left="30" />
+                            </padding>
+                            <children>
+                                <!-- Cover Image Card -->
+                                <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="card" prefWidth="450.0" prefHeight="400.0" alignment="CENTER">
+                                    <children>
+                                        <Label text="Cover Image" styleClass="card-title" />
+                                        <VBox fx:id="coverImagePane"
+                                              styleClass="image-container cover"
+                                              alignment="CENTER"
+                                              prefWidth="400.0" prefHeight="200.0">
+                                            <padding>
+                                                <Insets top="20" right="20" bottom="20" left="20" />
+                                            </padding>
+                                            <children>
+                                                <ImageView fx:id="coverImageView"
+                                                           fitHeight="150.0" fitWidth="340.0"
+                                                           pickOnBounds="true" preserveRatio="true" />
+                                            </children>
+                                        </VBox>
+
+                                    </children>
+                                    <padding>
+                                        <Insets top="20" right="20" bottom="20" left="20" />
+                                    </padding>
+                                </VBox>
+                                <!-- Secret Content Tabs -->
+                                <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="card" prefWidth="450.0" prefHeight="400.0" alignment="TOP_CENTER">
+                                    <children>
+                                        <TabPane fx:id="secretContentTabsInner" tabClosingPolicy="UNAVAILABLE" styleClass="content-tabs" prefWidth="400.0">
+                                            <tabs>
+                                                <Tab fx:id="secretMessageTab" text="Message" styleClass="content-tab" disable="true">
+                                                    <content>
+                                                        <VBox spacing="20.0" alignment="CENTER">
+                                                            <children>
+                                                                <Label text="Secret Message" styleClass="card-subtitle" />
+                                                                <TextArea fx:id="secretMessage" prefHeight="200.0" prefWidth="350.0" styleClass="text-area" />
+                                                                <Button fx:id="encodeMessage" text="Encode Message" onAction="#encodeMessageInImage" styleClass="encode-action-button" prefWidth="150.0" prefHeight="40.0" />
+                                                            </children>
+                                                            <padding>
+                                                                <Insets top="15" right="15" bottom="15" left="15" />
+                                                            </padding>
+                                                        </VBox>
+                                                    </content>
+                                                </Tab>
+                                                <Tab fx:id="secretDocumentTab" text="Document" styleClass="content-tab" disable="true">
+                                                    <content>
+                                                        <VBox spacing="20.0" alignment="CENTER">
+                                                            <children>
+                                                                <Label text="Secret Document" styleClass="card-subtitle" />
+                                                                <ListView fx:id="secretDocumentContent" prefHeight="200.0" prefWidth="350.0" styleClass="list-view" />
+                                                                <Button fx:id="encodeDocument" text="Encode Document" onAction="#encodeDocumentInImage" styleClass="encode-action-button" prefWidth="150.0" prefHeight="40.0" disable="true" />
+                                                            </children>
+                                                            <padding>
+                                                                <Insets top="15" right="15" bottom="15" left="15" />
+                                                            </padding>
+                                                        </VBox>
+                                                    </content>
+                                                </Tab>
+                                                <Tab fx:id="secretImageTab" text="Image" styleClass="content-tab" disable="true">
+                                                    <content>
+                                                        <VBox spacing="20.0" alignment="CENTER">
+                                                            <children>
+                                                                <Label text="Secret Image" styleClass="card-subtitle" />
+                                                                <VBox fx:id="secretImagePane"
+                                                                      styleClass="image-container small"
+                                                                      alignment="CENTER"
+                                                                      prefWidth="300.0" prefHeight="160.0"
+                                                                      maxWidth="300.0" maxHeight="160.0">
+                                                                    <children>
+                                                                        <ImageView fx:id="secretImageView"
+                                                                                   fitHeight="140.0" fitWidth="280.0"
+                                                                                   pickOnBounds="true" preserveRatio="true" />
+                                                                    </children>
+                                                                </VBox>
+                                                                <Button fx:id="encodeImage"
+                                                                        text="Encode Image"
+                                                                        onAction="#encodeImageInImage"
+                                                                        styleClass="encode-action-button"
+                                                                        prefWidth="150.0" prefHeight="40.0"
+                                                                        disable="true" />
+                                                            </children>
+                                                            <padding>
+                                                                <Insets top="15" right="15" bottom="15" left="15" />
+                                                            </padding>
+                                                        </VBox>
+                                                    </content>
+                                                </Tab>
+                                            </tabs>
+                                        </TabPane>
+                                    </children>
+                                    <padding>
+                                        <Insets top="20" right="20" bottom="20" left="20" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </GridPane>
+                    </content>
+                </Tab>
+                <Tab text="Decode" styleClass="content-tab">
+                    <content>
+                        <VBox styleClass="card" alignment="CENTER" prefWidth="450.0" prefHeight="400.0">
+                            <children>
+                                <Label text="Steganographic Image" styleClass="card-title" />
+                                <VBox fx:id="steganographicImagePane"
+                                      alignment="CENTER"
+                                      styleClass="image-container stego"
+                                      prefWidth="400.0" prefHeight="300.0">
+                                    <padding>
+                                        <Insets top="20" right="20" bottom="20" left="20" />
+                                    </padding>
+                                    <children>
+                                        <ImageView fx:id="steganographicImageView"
+                                                   fitHeight="260.0" fitWidth="360.0"
+                                                   pickOnBounds="true" preserveRatio="true" />
+                                    </children>
+                                </VBox>
+                                <Button fx:id="decodeImage" text="Decode Image" onAction="#decodeImage" styleClass="action-button" prefWidth="150.0" prefHeight="40.0" disable="true">
+                                    <VBox.margin>
+                                        <Insets top="20.0" />
+                                    </VBox.margin>
+                                </Button>
+                            </children>
+                            <padding>
+                                <Insets top="20" right="20" bottom="20" left="20" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+    <bottom>
+        <VBox styleClass="footer" alignment="CENTER">
+            <children>
+                <Label text="23XT58 - JAVA PROGRAMMING LAB" styleClass="footer-text">
+                    <font>
+                        <Font name="JetBrains Mono" size="14.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15" />
+            </padding>
+        </VBox>
+    </bottom>
+</BorderPane>
